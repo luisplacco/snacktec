@@ -1,0 +1,14 @@
+{
+  "name": "snacktec",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "snacktec-app"
+  ],
+  "scripts": {
+    "start": "npm run start --workspace=snacktec-app",
+    "start:backend": "npm run start --workspace=backend",
+    "start:frontend": "npm run start --workspace=snacktec-app"
+  }
+}
