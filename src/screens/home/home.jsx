@@ -31,6 +31,8 @@ function Home() {
 
             <Banners dados={banners} />
 
+
+
             {
                 restaurantes.map((restaurante, index) => {
                     return <View key={index}>

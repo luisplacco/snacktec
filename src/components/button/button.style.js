@@ -4,12 +4,18 @@ export const styles = {
     btn: {
         width: "100%",
         backgroundColor: COLORS.red,
-        borderRadius: 6
+        borderRadius: 6,
+        padding: 14,
     },
     texto: {
         fontSize: FONT_SIZE.md,
         color: "white",
-        padding: 14,
+        
         textAlign: "center"
-    }
+    },
+    loading:{
+        opacity: 0.5,
+        
+    },
+    loadingcolor: "#ffffff"
 }

@@ -1,179 +1,129 @@
 export const categorias = [
     {
         id: 1,
-        descricao: "Burguers",
+        descricao: "Lanches",
         icone: require("../assets/cat-burguer.png")
     },
     {
         id: 2,
-        descricao: "Pizza",
+        descricao: "Salgados",
         icone: require("../assets/cat-pizza.png")
     },
     {
         id: 3,
-        descricao: "Fritas",
+        descricao: "Combos",
         icone: require("../assets/cat-fritas.png")
     },
     {
         id: 4,
-        descricao: "Sushi",
-        icone: require("../assets/cat-sushi.png")
-    },
+        descricao: "Doces",
+        icone: require("../assets/cat-sobremesa.png")
+    }, 
     {
         id: 5,
-        descricao: "Churrasco",
+        descricao: "Snacks",
         icone: require("../assets/cat-churrasco.png")
     },
     {
         id: 6,
-        descricao: "Sucos",
+        descricao: "Sucos Naturais",
         icone: require("../assets/cat-suco.png")
     },
-    {
-        id: 7,
-        descricao: "Doces",
-        icone: require("../assets/cat-sobremesa.png")
-    }
+    
 ];
 
 export const banners = [
     {
         id: 1,
-        descricao: "Pizzas",
-        icone: require("../assets/banner1.png")
+        descricao: "Combo1",
+        icone: require("../assets/combo1.png")
     },
     {
         id: 2,
-        descricao: "Comida Saudável",
-        icone: require("../assets/banner2.png")
+        descricao: "Combo2",
+        icone: require("../assets/combo2.png")
     }
 ];
+
+
 
 export const restaurantes = [
     {
         id: 1,
-        nome: "Churrascaria e Pizzaria Boizão",
-        endereco: "Alamensa Santos, 954",
-        logotipo: require("../assets/restaurante1.png")
+        nome: "Coca-Cola Lata",
+        endereco: "R$ 5,00",
+        logotipo: require("../assets/coca-destaque.png")
     },
     {
         id: 2,
-        nome: "The Keba’s Bar",
-        endereco: "Rua Rui Barbosa, 512",
-        logotipo: require("../assets/restaurante2.png")
+        nome: "Sanduíche",
+        endereco: "R$ 15,00",
+        logotipo: require("../assets/sanduiche-destaque.png")
     },
     {
         id: 3,
-        nome: "Churrascaria e Pizzaria Boizão",
-        endereco: "Alamensa Santos, 954",
-        logotipo: require("../assets/restaurante1.png")
+        nome: "Ouro Branco",
+        endereco: "R$ 8,00",
+        logotipo: require("../assets/outrobranco.png")
     },
     {
         id: 4,
-        nome: "The Keba’s Bar",
-        endereco: "Rua Rui Barbosa, 512",
-        logotipo: require("../assets/restaurante2.png")
+        nome: "Brownie",
+        endereco: "R$ 30,00",
+        logotipo: require("../assets/brownie-removebg-preview.png")
     },
     {
         id: 5,
-        nome: "Churrascaria e Pizzaria Boizão",
-        endereco: "Alamensa Santos, 954",
-        logotipo: require("../assets/restaurante1.png")
+        nome: "Quibe",
+        endereco: "R$ 10,00",
+        logotipo: require("../assets/quibe.png")
     },
     {
         id: 6,
-        nome: "The Keba’s Bar",
-        endereco: "Rua Rui Barbosa, 512",
-        logotipo: require("../assets/restaurante2.png")
-    },
-    {
-        id: 7,
-        nome: "Churrascaria e Pizzaria Boizão",
-        endereco: "Alamensa Santos, 954",
-        logotipo: require("../assets/restaurante1.png")
-    },
-    {
-        id: 8,
-        nome: "The Keba’s Bar",
-        endereco: "Rua Rui Barbosa, 512",
-        logotipo: require("../assets/restaurante2.png")
+        nome: "Coxinha",
+        endereco: "R$ 6,00",
+        logotipo: require("../assets/coxinha.png")
     }
 ];
+
+    
+
 
 export const pedidos = [
     {
         id: 1,
-        nome: "Churrascaria e Pizzaria Boizão",
-        endereco: "Alameda Santos, 954",
+        nome: "Cantina Escolar",
+        endereco: "Cantina do Colégio",
         status: "Entregue",
-        dt_pedido: "10/05/2024",
-        vl_total: 149,
-        logotipo: require("../assets/restaurante1.png")
+        dt_pedido: "07/09/2025",
+        vl_total: 13.00,
     },
     {
         id: 2,
-        nome: "The Keba’s Bar",
-        endereco: "Rua Rui Barbosa, 512",
+        nome: "Cantina Escolar",
+        endereco: "Cantina do Colégio",
         status: "Entregue",
-        dt_pedido: "10/05/2024",
-        vl_total: 52,
-        logotipo: require("../assets/restaurante2.png")
+        dt_pedido: "07/09/2025",
+        vl_total: 12.00,
     },
     {
         id: 3,
-        nome: "Churrascaria e Pizzaria Boizão",
-        endereco: "Alameda Santos, 954",
+        nome: "Cantina Escolar",
+        endereco: "Cantina do Colégio",
         status: "Entregue",
-        dt_pedido: "10/05/2024",
-        vl_total: 71,
-        logotipo: require("../assets/restaurante1.png")
+        dt_pedido: "07/09/2025",
+        vl_total: 8.50,
     },
     {
         id: 4,
-        nome: "The Keba’s Bar",
-        endereco: "Rua Rui Barbosa, 512",
+        nome: "Cantina Escolar",
+        endereco: "Cantina do Colégio",
         status: "Entregue",
-        dt_pedido: "10/05/2024",
-        vl_total: 29.90,
-        logotipo: require("../assets/restaurante2.png")
-    },
-    {
-        id: 5,
-        nome: "Churrascaria e Pizzaria Boizão",
-        endereco: "Alameda Santos, 954",
-        status: "Entregue",
-        dt_pedido: "10/05/2024",
-        vl_total: 149,
-        logotipo: require("../assets/restaurante1.png")
-    },
-    {
-        id: 6,
-        nome: "The Keba’s Bar",
-        endereco: "Rua Rui Barbosa, 512",
-        status: "Entregue",
-        dt_pedido: "10/05/2024",
-        vl_total: 48,
-        logotipo: require("../assets/restaurante2.png")
-    },
-    {
-        id: 7,
-        nome: "Churrascaria e Pizzaria Boizão",
-        endereco: "Alameda Santos, 954",
-        status: "Entregue",
-        dt_pedido: "10/05/2024",
-        vl_total: 19.90,
-        logotipo: require("../assets/restaurante1.png")
-    },
-    {
-        id: 8,
-        nome: "The Keba’s Bar",
-        endereco: "Rua Rui Barbosa, 512",
-        status: "Entregue",
-        dt_pedido: "10/05/2024",
-        vl_total: 112,
-        logotipo: require("../assets/restaurante2.png")
+        dt_pedido: "07/09/2025",
+        vl_total: 5.00,
     }
 ];
+
 
 export const restaurante = {
     id: 1,

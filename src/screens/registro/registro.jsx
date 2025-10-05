@@ -13,9 +13,29 @@ function Registro(props) {
     const [senha1, setSenha1] = useState("");
     const [senha2, setSenha2] = useState("");
 
+    async function ProcessarNovaConta() {
+       try {
+        setLoading(true);
+        const response = await api.post("/usuarios", {
+            nome,
+            ra:email,
+            senha: senha1
+        }); 
+        console.log(response.data);
+        Alert.alert("Conta criada com sucesso!");
+    }
+    catch (error) {
+        setLoading(false);
+        if(error.response?.data.error)
+            Alert.alert("Erro", error.response.data.error);
+        else 
+            Alert.alert("Erro", "Não foi possível conectar ao servidor.");
+    }
+}
+
     return <>
         <View style={styles.container}>
-            <ScrollView style={styles.scrollView}>
+            <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
                 <Header texto="Criar sua conta." />
 
                 <View style={styles.formGroup}>
@@ -44,8 +64,8 @@ function Registro(props) {
                     </View>
 
                     <View style={styles.form}>
-                        <Button texto="Próximo passo"
-                            onPress={() => props.navigation.navigate("registro2")} />
+                                            <Button texto="Criar minha conta" onPress={ProcessarNovaConta}
+                                            isLoading={loading} />
                     </View>
                 </View>
 
