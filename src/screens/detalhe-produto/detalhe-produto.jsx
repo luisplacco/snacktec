@@ -15,11 +15,11 @@ function DetalheProduto(props) {
 
         <View style={styles.header}>
             <View style={styles.headerTextos}>
-                <Text style={styles.nome}>Pizza Calabresa</Text>
-                <Text style={styles.descricao}>Massa artesanal, mussarela e calabresa.
-                    Serve de 3 a 4 pessoas. Molho e tomate 100% natural
-                    e ingredientes selecionados.</Text>
-                <Text style={styles.valor}>R$ 30,00</Text>
+                <Text style={styles.nome}>Lanche natural</Text>
+                <Text style={styles.descricao}>Um clássico irresistível feito com pão francês fresquinho, recheado com presunto suculento, 
+                    fatias de queijo derretendo e folhas crocantes de alface.
+                     Leve, saboroso e perfeito para qualquer hora do dia.</Text>
+                <Text style={styles.valor}>R$ 15,00</Text>
             </View>
         </View>
 

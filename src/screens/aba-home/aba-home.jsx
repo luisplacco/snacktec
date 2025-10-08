@@ -8,8 +8,20 @@ import Categorias from "../../components/categorias/categorias.jsx";
 import Banners from "../../components/banners/banners.jsx";
 import Restaurante from "../../components/restaurante/restaurante.jsx";
 import api from "../../constants/api.js";
+import { Alert } from "react-native";
+import {OpenDetalhe} from "../aba-favoritos/aba-favoritos.jsx";
+import { useFocusEffect } from "@react-navigation/native";
+import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
+
+
+
+
 
 function Home() {
+    const navigation = useNavigation();
 
     async function LoadCategory() {
         try {
@@ -59,6 +71,47 @@ function Home() {
         }
     }
 
+    async function DeleteFavoritos(id) {
+        try {
+
+            const response = await api.delete("produtos/" + id +"/favoritos");
+
+            if(response.data){
+               LoadDestaques();
+        }
+    }catch (error) {
+            if (error.response?.data.error)
+                Alert.alert("Erro", error.response.data.error);
+            else
+                Alert.alert("Erro", "Não foi possível conectar ao servidor.");
+        }
+    }
+
+    
+
+    async function AddFavoritos(id) {
+        try {
+
+            const response = await api.post("produtos/" + id +"/favoritos");
+
+            if(response.data){
+              LoadDestaques();
+        }
+    }catch (error) {
+            if (error.response?.data.error)
+                Alert.alert("Erro", error.response.data.error);
+            else
+                Alert.alert("Erro", "Não foi possível conectar ao servidor.");
+        }
+    }
+
+
+    useFocusEffect(
+            React.useCallback(() => {
+                LoadDestaques();
+            }, [])
+        );
+
 
     const [busca, setBusca] = useState("");
     const [categorias, setCategorias] = useState([]);
@@ -96,12 +149,18 @@ function Home() {
             {
     destaques.map((produto, index) => (
         <View key={index}>
-            <Restaurante // ou crie um componente Produto
-                logotipo={produto.ICONE}
-                nome={produto.NOME}
-                endereco={produto.PRECO ? `R$ ${produto.PRECO.toFixed(2)}` : ""}
-                icone={produto.FAVORITO === "S" ? icons.favoritoFull : icons.favorito}
-               
+            <Restaurante
+    id_produto={produto.ID_PRODUTO}
+    logotipo={produto.ICONE}
+    nome={produto.NOME}
+    endereco={produto.PRECO ? `R$ ${produto.PRECO.toFixed(2)}` : ""}
+    icone={produto.FAVORITO === "S" ? icons.favoritoFull : icons.favorito}
+    onPress={() => navigation.navigate("detalhe-produto", { id: produto.ID_PRODUTO })}
+    onClickIcon={
+        produto.FAVORITO === "S"
+            ? () => DeleteFavoritos(produto.ID_PRODUTO)
+            : () => AddFavoritos(produto.ID_PRODUTO)
+    }      
             />
         </View>
     ))

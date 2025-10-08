@@ -1,20 +1,85 @@
-import { FlatList, Image, Text, View } from "react-native";
-import { restaurantes } from "../../constants/dados.js";
+import { Alert,FlatList, Image, Text, View, } from "react-native";
+import { useEffect, useState } from "react";
 import Restaurante from "../../components/restaurante/restaurante.jsx";
 import icons from "../../constants/icons.js";
 import { styles } from "./aba-favoritos.style.js";
+import api from "../../constants/api.js";
+import { useFocusEffect } from "@react-navigation/native";
+import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
+
 
 function AbaFavoritos() {
+
+    const [restaurantes, setRestaurantes] = useState([]);
+
+
+
+     async function LoadFavoritos() {
+        try {
+            const response = await api.get("usuarios/favoritos");
+            if (response.data) {
+                setRestaurantes(response.data);
+            }
+        } catch (error) {
+            if (error.response?.data.error)
+                Alert.alert("Erro", error.response.data.error);
+            else
+                Alert.alert("Erro", "Não foi possível conectar ao servidor.");
+        }
+    }
+    useFocusEffect(
+        React.useCallback(() => {
+            LoadFavoritos();
+        }, [])
+    );
+
+
+    async function DeleteFavoritos(id) {
+   
+
+        try {
+
+            const response = await api.delete("produtos/" + id +"/favoritos");
+
+            if(response.data){
+                LoadFavoritos();
+        }
+    }catch (error) {
+            if (error.response?.data.error)
+                Alert.alert("Erro", error.response.data.error);
+            else
+                Alert.alert("Erro", "Não foi possível conectar ao servidor.");
+        }
+    }
+    
+
+
+  function OpenDetalhe(produto) {
+    Alert.alert("Detalhe", produto.NOME);
+}
+
+    useEffect(() => {
+        LoadFavoritos();
+    }, []);
+
+
     return <View style={styles.container}>
         <FlatList data={restaurantes}
-            keyExtractor={(restaurante) => restaurante.id}
+            keyExtractor={(restaurante) => restaurante.ID_PRODUTO.toString()}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => {
-                return <Restaurante nome={item.nome}
-                    endereco={item.endereco}
-                    logotipo={item.logotipo}
-                    icone={icons.remove} />
-            }}
+            renderItem={({ item }) => (
+                <Restaurante
+                    id_produto= {item.ID_PRODUTO}
+                     nome={item.NOME}
+                    logotipo={item.ICONE}
+                    icone={icons.remove}
+                    onPress={() => navigation.navigate("detalhe-produto", { id: produto.ID_PRODUTO })}
+                    onClickIcon={DeleteFavoritos}
+/>
+            )}
 
             contentContainerStyle={styles.containerList}
 

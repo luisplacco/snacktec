@@ -15,7 +15,7 @@ import abafavorito from "../assets/aba-favorito.png";
 import abaPedido from "../assets/aba-pedidos.png";
 import abaPerfil from "../assets/aba-perfil.png";
 import location from "../assets/location.png"
-import produto from "../assets/produto-pizza.png";
+import produto from "../assets/pao-natural-header.webp";
 import menos from "../assets/menos.png";
 import mais from "../assets/mais.png";
 
