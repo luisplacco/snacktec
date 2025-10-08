@@ -11,6 +11,27 @@ import Restaurante from "../../components/restaurante/restaurante.jsx";
 
 function Home() {
 
+    async function LoadCategory() {
+        try {
+            
+            const response = await api.get("/categorias", {
+                ra,
+                senha
+            });
+            if(response.data){
+  
+        }
+    }catch (error) {
+            setLoading(false);
+            await SaveUsuario({});
+            if (error.response?.data.error)
+                Alert.alert("Erro", error.response.data.error);
+            else
+                Alert.alert("Erro", "Não foi possível conectar ao servidor.");
+        }
+    }
+
+
     const [busca, setBusca] = useState("");
 
     return <SafeAreaView style={styles.container}>
@@ -39,7 +60,7 @@ function Home() {
                         <Restaurante logotipo={restaurante.logotipo}
                             nome={restaurante.nome}
                             endereco={restaurante.endereco}
-                            icone={icons.favoritoFull} />
+                            icone={icons.favorito} />
                     </View>
                 })
             }
