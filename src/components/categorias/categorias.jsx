@@ -2,6 +2,9 @@ import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./categorias.style.js";
 
 function Categorias(props) {
+
+
+    
     
     return <View>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>

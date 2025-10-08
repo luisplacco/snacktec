@@ -20,7 +20,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 
 
-function Home() {
+function Home(props) {
     const navigation = useNavigation();
 
     async function LoadCategory() {
@@ -105,6 +105,11 @@ function Home() {
         }
     }
 
+    function Search (){
+        props.navigation.navigate("busca", { termo: busca });
+
+    }
+
 
     useFocusEffect(
             React.useCallback(() => {
@@ -133,7 +138,11 @@ function Home() {
         <View style={styles.busca}>
             <TextBox placeholder="O que vamos pedir hoje?"
                 onChangeText={(texto) => setBusca(texto)}
-                value={busca} />
+                value={busca}
+                returnKeyType="search"
+                onSubmit={Search}
+                
+                />    
         </View>
 
         <ScrollView showsVerticalScrollIndicator={false}>

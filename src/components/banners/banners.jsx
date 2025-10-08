@@ -2,6 +2,8 @@ import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { styles } from "./banners.style.js";
 
 function Banners(props) {
+
+
    
     return <View>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>

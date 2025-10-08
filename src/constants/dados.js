@@ -49,42 +49,61 @@ export const banners = [
 
 export const restaurantes = [
     {
-        id: 1,
-        nome: "Coca-Cola Lata",
-        endereco: "R$ 5,00",
-        logotipo: require("../assets/coca-destaque.png")
+        "ID_PRODUTO": 2,
+        "ID_CATEGORIA": 2,
+        "NOME": "Coca-cola",
+        "DESCRICAO": "Coca-cola normal",
+        "PRECO": 4,
+        "ICONE": "https://luisfelipe.free.nf/images/coca.png",
+        "ESTOQUE": 30,
+        "ATIVO": 1,
+        "FAVORITO": "N"
     },
     {
-        id: 2,
-        nome: "Sanduíche",
-        endereco: "R$ 15,00",
-        logotipo: require("../assets/sanduiche-destaque.png")
+        "ID_PRODUTO": 3,
+        "ID_CATEGORIA": 1,
+        "NOME": "Coxinha",
+        "DESCRICAO": "Coxinha de frango com catupiry",
+        "PRECO": 5,
+        "ICONE": "https://luisfelipe.free.nf/images/coxinha.png",
+        "ESTOQUE": 40,
+        "ATIVO": 1,
+        "FAVORITO": "N"
     },
     {
-        id: 3,
-        nome: "Ouro Branco",
-        endereco: "R$ 8,00",
-        logotipo: require("../assets/outrobranco.png")
+        "ID_PRODUTO": 1,
+        "ID_CATEGORIA": 1,
+        "NOME": "Lanche natural",
+        "DESCRICAO": "Lanche natural de presunto e queijo",
+        "PRECO": 7.5,
+        "ICONE": "https://luisfelipe.free.nf/images/lanche_natural.png",
+        "ESTOQUE": 20,
+        "ATIVO": 1,
+        "FAVORITO": "N"
     },
     {
-        id: 4,
-        nome: "Brownie",
-        endereco: "R$ 30,00",
-        logotipo: require("../assets/brownie-removebg-preview.png")
+        "ID_PRODUTO": 5,
+        "ID_CATEGORIA": 1,
+        "NOME": "Pastel de Queijo",
+        "DESCRICAO": "Pastel frito recheado com queijo",
+        "PRECO": 6,
+        "ICONE": "https://cdn-icons-png.flaticon.com/512/1046/1046784.png",
+        "ESTOQUE": 30,
+        "ATIVO": 1,
+        "FAVORITO": "N"
     },
     {
-        id: 5,
-        nome: "Quibe",
-        endereco: "R$ 10,00",
-        logotipo: require("../assets/quibe.png")
-    },
-    {
-        id: 6,
-        nome: "Coxinha",
-        endereco: "R$ 6,00",
-        logotipo: require("../assets/coxinha.png")
+        "ID_PRODUTO": 4,
+        "ID_CATEGORIA": 2,
+        "NOME": "Refrigerante",
+        "DESCRICAO": "Refrigerante 350ml",
+        "PRECO": 4.5,
+        "ICONE": "https://cdn-icons-png.flaticon.com/512/1046/1046784.png",
+        "ESTOQUE": 50,
+        "ATIVO": 1,
+        "FAVORITO": "N"
     }
-];
+]
 
     
 
