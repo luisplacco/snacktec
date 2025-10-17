@@ -11,7 +11,7 @@ function Categorias(props) {
             {
                 props.dados.map((categoria, index) => {
                     return <View key={index} style={styles.categoria}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=> props.onClick(categoria.ID_CATEGORIA)}>
                             <Image style={styles.icone} source={{ uri: categoria.ICONE }} />
                             <Text style={styles.descricao}>{categoria.NOME}</Text>
                         </TouchableOpacity>

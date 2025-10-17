@@ -106,8 +106,20 @@ function Home(props) {
     }
 
     function Search (){
-        props.navigation.navigate("busca", { termo: busca });
+        props.navigation.navigate("busca", {
+             termo: busca 
+            });
+    }
 
+    function SearchCategoria(id){
+        props.navigation.navigate("busca", {
+             id_categoria: id,
+            });
+    }
+    function SearchBanner(id){
+        props.navigation.navigate("busca", {
+             id_banner: id,
+            });
     }
 
 
@@ -116,6 +128,8 @@ function Home(props) {
                 LoadDestaques();
             }, [])
         );
+
+
 
 
     const [busca, setBusca] = useState("");
@@ -147,9 +161,12 @@ function Home(props) {
 
         <ScrollView showsVerticalScrollIndicator={false}>
 
-            <Categorias dados={categorias} />
+            <Categorias dados={categorias} onClick={SearchCategoria} />
 
-            <Banners dados={banners} />
+           <Banners
+    dados={banners}
+    onClick={(banner) => navigation.navigate("pedido", { combo: banner })}
+/>
 
             <View>
                 <Text style={styles.destaques}>Destaques</Text>

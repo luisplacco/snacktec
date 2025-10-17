@@ -6,13 +6,12 @@ import { styles } from "./aba-favoritos.style.js";
 import api from "../../constants/api.js";
 import { useFocusEffect } from "@react-navigation/native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native"; 
 import { useIsFocused } from "@react-navigation/native";
 
 
 function AbaFavoritos() {
-
+    const navigation = useNavigation();
     const [restaurantes, setRestaurantes] = useState([]);
 
 
@@ -57,9 +56,7 @@ function AbaFavoritos() {
     
 
 
-  function OpenDetalhe(produto) {
-    Alert.alert("Detalhe", produto.NOME);
-}
+  
 
     useEffect(() => {
         LoadFavoritos();
@@ -76,7 +73,7 @@ function AbaFavoritos() {
                      nome={item.NOME}
                     logotipo={item.ICONE}
                     icone={icons.remove}
-                    onPress={() => navigation.navigate("detalhe-produto", { id: produto.ID_PRODUTO })}
+                    onPress={() => navigation.navigate("detalhe-produto")}
                     onClickIcon={DeleteFavoritos}
 />
             )}

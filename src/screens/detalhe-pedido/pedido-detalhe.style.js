@@ -22,5 +22,15 @@ export const styles = {
         fontSize: FONT_SIZE.sm,
         color: COLORS.dark_gray,
         fontWeight: "bold"
+    },
+    containerPedido: {
+        width: "100%",
+    },
+
+    textPedido: {
+        textAlign: "center",
+        color: COLORS.dark_gray,
+        fontSize: FONT_SIZE.md,
+
     }
 }

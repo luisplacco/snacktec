@@ -208,12 +208,12 @@ export const pedido = {
         {
             idItem: 1,
             idProduto: 1,
-            nome: "Pizza Calabresa",
-            descricao: "Massa artesanal, mussarela e calabresa",
-            foto: require("../assets/produto-pizza.png"),
-            qtd: 2,
-            vlUnitario: 30.00,
-            vlTotal: 60.00
+            nome: "Misto quente",
+            descricao: "Pão presunto e queijo na chapa",
+            foto: require("../assets/misto-quente-gratinado.jpg"),
+            qtd: 1,
+            vlUnitario: 10.00,
+            vlTotal: 10.00
         },
         {
             idItem: 2,

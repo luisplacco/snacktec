@@ -20,40 +20,42 @@ function Login(props) {
     const {user, setUser} = useContext(AuthContext); 
 
     async function ProcessarLogin() {
-        try {
-            setLoading(true);
-            const response = await api.post("/usuarios/login", {
-                ra,
-                senha
-            });
-            if(response.data){
-    api.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
-    const usuario = response.data; 
-    await SaveUsuario(usuario);
-    setUser(usuario);
-}
-        }
-        catch (error) {
-            setLoading(false);
-            await SaveUsuario({});
-            if (error.response?.data.error)
-                Alert.alert("Erro", error.response.data.error);
-            else
-                Alert.alert("Erro", "Não foi possível conectar ao servidor.");
-        }
-    }
+    try {
+        setLoading(true);
+        const response = await api.post("/usuarios/login", {
+            ra,
+            senha
+        });
 
-    async function CarregarDados() {
-        try {  
-            const usuario = await LoadUsuario();
-            if (usuario.ID_USUARIO) {
-                api.defaults.headers.common['Authorization'] = "Bearer " + usuario.token;
-                setUser(usuario);
-            }
-        } catch (error) {
-            console.log("Erro ao carregar dados do usuário");
+        if (response.data) {
+            api.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
+            const usuario = response.data;
+            await SaveUsuario(usuario);
+            setUser(usuario);
         }
+        setLoading(false);
+    } catch (error) {
+        setLoading(false);
+        await SaveUsuario({});
+        console.log("ProcessarLogin error:", error.message, error.response || error);
+        if (error.response?.data?.error)
+            Alert.alert("Erro", error.response.data.error);
+        else
+            Alert.alert("Erro", "Não foi possível conectar ao servidor.");
     }
+}
+
+async function CarregarDados() {
+    try {
+        const usuario = await LoadUsuario();
+        if (usuario?.ID_USUARIO) {
+            api.defaults.headers.common['Authorization'] = "Bearer " + usuario.token;
+            setUser(usuario);
+        }
+    } catch (error) {
+        console.log("Erro ao carregar dados do usuário:", error);
+    }
+}
 
     useEffect(() => {
         CarregarDados();
