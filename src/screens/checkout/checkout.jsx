@@ -1,11 +1,17 @@
-import { Image, TouchableOpacity, View, Text, FlatList } from "react-native";
+import { Image, TouchableOpacity, View, Text, FlatList, ScrollView } from "react-native";
 import { styles } from "./checkout.style.js";
 import icons from "../../constants/icons.js";
-import { pedido } from "../../constants/dados.js";
+import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { CartContext } from "../../contexts/cart.js";
 import Produto from "../../components/produto/produto.jsx";
 import Button from "../../components/button/button.jsx";
 
+
+
 function Checkout(props) {
+
+    const { cart, setCart } = useContext(CartContext);
 
     function ClickDelete() {
         alert("OK");
@@ -13,15 +19,15 @@ function Checkout(props) {
 
     return <View style={styles.container}>
 
-        <FlatList data={pedido.itens}
-            keyExtractor={(item) => item.idItem}
+        <FlatList data={cart.ITENS}
+            keyExtractor={(item) => item.ID_PRODUTO}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
-                return <Produto key={item.idItem}
-                    foto={item.foto}
-                    nome={item.nome}
-                    descricao={item.descricao}
-                    valor={item.vlTotal}
+                return <Produto key={item.ID_PRODUTO}
+                    foto={item.ICONE}
+                    nome={item.NOME}
+                    descricao={item.DESCRICAO}
+                    valor={item.VL_TOTAL}
                     onClickDelete={ClickDelete} />
             }}
         />

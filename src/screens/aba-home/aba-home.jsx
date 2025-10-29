@@ -1,4 +1,4 @@
-import { Image, View, Text, ScrollView } from "react-native";
+import { Image, View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { styles } from "./aba-home.style.js";
 import icons from "../../constants/icons.js";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,9 +15,6 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/native";
-
-
-
 
 
 function Home(props) {
@@ -146,7 +143,9 @@ function Home(props) {
     return <SafeAreaView style={styles.container}>
         <View style={styles.headerBar}>
             <Image source={icons.logo} style={styles.logo} />
+            <TouchableOpacity onPress={() => navigation.navigate("checkout")}>
             <Image source={icons.cart} style={styles.cart} />
+            </TouchableOpacity> 
         </View>
 
         <View style={styles.busca}>
