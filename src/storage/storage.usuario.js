@@ -14,9 +14,18 @@ async function LoadUsuario (){
         return storage ? JSON.parse(storage) : {};
     } catch (error) {
         console.log("erro ao carregar storage");
+        return {};
     }
 }
 
+async function getToken (){
+    try {
+        const usuario = await LoadUsuario();
+        return usuario.token || null;
+    } catch (error) {
+        console.log("erro ao obter token");
+        return null;
+    }
+}
 
-
-export {SaveUsuario, LoadUsuario};
+export {SaveUsuario, LoadUsuario, getToken};

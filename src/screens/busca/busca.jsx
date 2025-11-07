@@ -88,8 +88,9 @@ function Busca(props) {
                 return <Restaurante id_produto={item.ID_PRODUTO}
                     nome={item.NOME}
                     logotipo={item.ICONE}
-                    icone={icons.favorito}
-                    onPress={() => navigation.navigate("detalhe-produto", { id: item.ID_PRODUTO })}
+                    endereco={item.PRECO ? `R$ ${item.PRECO.toFixed(2)}` : ""}
+                    icone={item.FAVORITO === "S" ? icons.favoritoFull : icons.favorito}
+                    onPress={() => navigation.navigate("detalhe-produto", { id_produto: item.ID_PRODUTO })}
                     onClickIcon={
                         item.FAVORITO === "S"
                             ? () => DeleteFavoritos(item.ID_PRODUTO)

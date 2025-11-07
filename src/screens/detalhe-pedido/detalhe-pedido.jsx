@@ -45,13 +45,14 @@ function DetalhePedido(props) {
         
 
         <FlatList data={pedido.itens}
-            keyExtractor={(item) => item.idItem}
+            keyExtractor={(item) => item.idItem?.toString() || item.ID_ITEM?.toString() || Math.random().toString()}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
-                return <Produto key={item.idItem}
+                return <Produto 
                     foto={item.ICONE}
                     nome={item.NOME}
                     qtd={item.QTD}
+                    obs={item.OBS}
                     descricao={item.DESCRICAO}
                     valor={item.VL_TOTAL} />
             }}
@@ -63,10 +64,10 @@ function DetalhePedido(props) {
             </View>
 
             <View style={styles.valores}>
-                <Text style={styles.valor}>Valor Total</Text>
+                <Text style={styles.valor}>Subtotal</Text>
                 <Text style={styles.valor}>{
                 new Intl.NumberFormat("pt-BR",
-                    { style: "currency", currency: "BRL" }).format(pedido.VL_TOTAL)
+                    { style: "currency", currency: "BRL" }).format(pedido.SUBTOTAL)
             }</Text>
             </View>
 
@@ -79,10 +80,10 @@ function DetalhePedido(props) {
             </View>
 
             <View style={styles.valores}>
-                <Text style={styles.total}>Subtotal</Text>
+                <Text style={styles.total}>Total</Text>
                 <Text style={styles.total}>{
                 new Intl.NumberFormat("pt-BR",
-                    { style: "currency", currency: "BRL" }).format(pedido.SUBTOTAL)
+                    { style: "currency", currency: "BRL" }).format(pedido.VL_TOTAL)
             }</Text>
             </View>
         </View>

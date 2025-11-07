@@ -25,5 +25,9 @@ export const styles = {
     },
     conatinerBtn: {
         marginTop: 10
+    },
+    btnLimpar: {
+        color: COLORS.red,
     }
+
 }

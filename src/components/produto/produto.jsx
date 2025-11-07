@@ -8,7 +8,9 @@ function Produto(props) {
 
         <View style={styles.textos}>
             <Text style={styles.nome}>{props.qtd} x {props.nome}</Text>
-            <Text style={styles.descricao}>{props.descricao}</Text>
+            <Text style={styles.descricao}>{props.descricao}
+                {props.obs && " - " + props.obs}
+            </Text>
         </View>
 
         <View>
@@ -20,7 +22,7 @@ function Produto(props) {
             {
                 props.onClickDelete &&
                 <TouchableOpacity style={styles.containerDelete}
-                    onPress={() => props.onClickDelete()}>
+                    onPress={() => props.onClickDelete(props.id_item)}>
                     <Image source={icons.remove} style={styles.delete} />
                 </TouchableOpacity>
             }

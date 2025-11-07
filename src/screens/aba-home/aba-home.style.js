@@ -25,5 +25,16 @@ export const styles = {
     destaques:{
         color: COLORS.dark_gray,
         fontWeight: "bold",
+    },
+    cartQtd: {
+        backgroundColor: COLORS.red,
+        color: COLORS.white,
+        borderRadius: 8,
+        fontSize: FONT_SIZE.xsm,
+        fontWeight: "bold",
+        position : "absolute",
+        top: -5,
+        right: 0,
+        padding: 2,
     }
 }

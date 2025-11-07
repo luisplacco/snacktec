@@ -23,6 +23,7 @@ function AbaPedidos(props) {
     async function LoadPedidos() {
         try {
             const response = await api.get("/pedidos");
+            
             if (response.data) {
                 setPedidos(response.data);
             }
@@ -56,8 +57,8 @@ function AbaPedidos(props) {
             renderItem={({ item }) => {
                 return <Pedido
                     logotipo={require("../../assets/cantina.png")}
-                    nome={item.NOME}
-                    valor={item.VL_TOTAL}
+                    nome="SnackTec"
+                    valor={item.VL_TOTAL || 0}
                     dt_pedido={item.DT_PEDIDO}
                     status={item.STATUS_DESCRICAO}
                     id_pedido={item.ID_PEDIDO}

@@ -3,7 +3,7 @@ import { styles } from "./aba-home.style.js";
 import icons from "../../constants/icons.js";
 import { SafeAreaView } from "react-native-safe-area-context";
 import TextBox from "../../components/textbox/textbox.jsx";
-import { useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Categorias from "../../components/categorias/categorias.jsx";
 import Banners from "../../components/banners/banners.jsx";
 import Restaurante from "../../components/restaurante/restaurante.jsx";
@@ -15,11 +15,13 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/native";
-
+import { CartContext } from "../../contexts/cart.js";
 
 function Home(props) {
     const navigation = useNavigation();
 
+    const {itens} = useContext(CartContext);
+ 
     async function LoadCategory() {
         try {
             
@@ -140,11 +142,15 @@ function Home(props) {
         LoadDestaques();
     }, []);
 
+
+
+
     return <SafeAreaView style={styles.container}>
         <View style={styles.headerBar}>
             <Image source={icons.logo} style={styles.logo} />
             <TouchableOpacity onPress={() => navigation.navigate("checkout")}>
             <Image source={icons.cart} style={styles.cart} />
+            <Text style={styles.cartQtd}>{itens.length > 0 ? itens.length : 0}</Text>
             </TouchableOpacity> 
         </View>
 
@@ -180,7 +186,7 @@ function Home(props) {
     nome={produto.NOME}
     endereco={produto.PRECO ? `R$ ${produto.PRECO.toFixed(2)}` : ""}
     icone={produto.FAVORITO === "S" ? icons.favoritoFull : icons.favorito}
-    onPress={() => navigation.navigate("detalhe-produto", { id: produto.ID_PRODUTO })}
+    onPress={() => navigation.navigate("detalhe-produto", { id_produto: produto.ID_PRODUTO })}
     onClickIcon={
         produto.FAVORITO === "S"
             ? () => DeleteFavoritos(produto.ID_PRODUTO)

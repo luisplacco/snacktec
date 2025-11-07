@@ -31,11 +31,7 @@ function RoutesAuth() {
                 headerShadowVisible: false,
                 title: "Meu Pedido",
                 headerTitleAlign: "center",
-                headerRight: () => {
-                    return <TouchableOpacity onPress={() => alert("OK")}>
-                        <Text style={{ color: COLORS.red }}>Limpar</Text>
-                    </TouchableOpacity>
-                },
+                
                 animation: "slide_from_bottom",
             }} />
 
