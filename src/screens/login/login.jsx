@@ -22,6 +22,26 @@ function Login(props) {
     async function ProcessarLogin() {
     try {
         setLoading(true);
+
+        // Verificar se são credenciais do administrador
+        if (ra === "12345678" && senha === "marcosadm2025") {
+            const adminUser = {
+                ID_USUARIO: 999,
+                NOME: "Marcos Silva",
+                EMAIL: "marcos@gmail.com",
+                RA: "12345678",
+                TIPO: "administrador",
+                token: "admin_token_2025"
+            };
+
+            api.defaults.headers.common['Authorization'] = "Bearer " + adminUser.token;
+            await SaveUsuario(adminUser);
+            setUser(adminUser);
+            setLoading(false);
+            return; // Sai da função para login admin
+        }
+
+        // Login normal para alunos
         const response = await api.post("/usuarios/login", {
             ra,
             senha

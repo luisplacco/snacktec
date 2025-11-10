@@ -23,8 +23,15 @@ function CalculaValores(){
         return prev + atual.vl_total;
     }, 0);
     
+    // Verificar se há itens promocionais (combos) no carrinho
+    const temCombo = itens.some(item => item.isCombo === true);
+    
+    // Se tem combo, não aplica desconto adicional
+    const descontoAplicado = temCombo ? 0 : 2;
+    
     setSubtotal(subtotalTemp);
-    setTotal(subtotalTemp - desconto);
+    setTotal(subtotalTemp - descontoAplicado);
+    setDesconto(descontoAplicado);
 }
 
 useEffect(() => {

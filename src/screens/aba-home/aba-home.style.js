@@ -12,8 +12,10 @@ export const styles = {
         justifyContent: "space-between"
     },
     logo: {
-        width: 140,
-        height: 27
+        width: 50,
+        height: 50,
+        resizeMode: "contain",
+        marginTop: -18
     },
     cart: {
         width: 30,

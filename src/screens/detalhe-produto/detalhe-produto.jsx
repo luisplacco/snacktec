@@ -7,8 +7,7 @@ import api from "../../constants/api.js";
 import { Alert } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { useContext } from "react";
-import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
+
 import { CartContext } from "../../contexts/cart.js";
 
 
@@ -25,7 +24,7 @@ function DetalheProduto(props) {
 
     function AddProdutoCart(){
         const item = {
-            id_item: uuidv4(),
+            id_item: `item_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
             id_produto: id_produto,
             icone: produto.ICONE,
             nome: produto.NOME,
@@ -34,6 +33,11 @@ function DetalheProduto(props) {
             qtd: qtd,
             valor: produto.PRECO,
             vl_total: produto.PRECO * qtd,
+            // Campos para compatibilidade com admin
+            NOME_PRODUTO: produto.NOME,
+            VL_TOTAL: produto.PRECO * qtd,
+            QTD: qtd,
+            OBSERVACAO: obs
         }
 
         AddItem(item);

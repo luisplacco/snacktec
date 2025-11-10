@@ -20,6 +20,37 @@ function AbaPedidos(props) {
         props.navigation.navigate("detalhe-pedido", { id_pedido : id });
     }
 
+    async function ExcluirPedido(id_pedido) {
+        Alert.alert(
+            "Confirmar Exclusão",
+            "Deseja realmente excluir este pedido?",
+            [
+                {
+                    text: "Cancelar",
+                    style: "cancel"
+                },
+                {
+                    text: "Excluir",
+                    style: "destructive",
+                    onPress: async () => {
+                        try {
+                            const response = await api.delete(`/pedidos/${id_pedido}`);
+                            if (response.data) {
+                                Alert.alert("Sucesso", "Pedido excluído com sucesso!");
+                                LoadPedidos(); // Recarregar lista
+                            }
+                        } catch (error) {
+                            if (error.response?.data?.error)
+                                Alert.alert("Erro", error.response.data.error);
+                            else
+                                Alert.alert("Erro", "Não foi possível excluir o pedido.");
+                        }
+                    }
+                }
+            ]
+        );
+    }
+
     async function LoadPedidos() {
         try {
             const response = await api.get("/pedidos");
@@ -62,7 +93,8 @@ function AbaPedidos(props) {
                     dt_pedido={item.DT_PEDIDO}
                     status={item.STATUS_DESCRICAO}
                     id_pedido={item.ID_PEDIDO}
-                    onClickPedido={DetalhePedido} />
+                    onClickPedido={DetalhePedido}
+                    onClickDelete={ExcluirPedido} />
             }}
 
             contentContainerStyle={styles.containerList}

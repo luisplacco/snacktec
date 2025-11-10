@@ -15,20 +15,10 @@ function AbaPerfil(props) {
 
     return <View style={styles.container}>
 
-        <TouchableOpacity style={[styles.item, styles.borderTop]}>
-            <View style={styles.containerIcone}>
-                <Image source={icons.endereco} style={styles.icone} />
-            </View>
-            <View style={styles.textos}>
-                <Text style={styles.titulo}>Endereço</Text>
-                <Text style={styles.subtitulo}>Meu endereço de entrega</Text>
-            </View>
-            <View style={styles.containerIcone}>
-                <Image source={icons.more} style={styles.more} />
-            </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.item}>
+        <TouchableOpacity style={[styles.item, styles.borderTop]} onPress={() => {
+            console.log("Clicando em Meus Dados...");
+            props.navigation.navigate("meus-dados");
+        }}>
             <View style={styles.containerIcone}>
                 <Image source={icons.dados} style={styles.icone} />
             </View>

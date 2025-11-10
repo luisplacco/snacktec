@@ -10,16 +10,69 @@ export const styles = StyleSheet.create({
   title: { 
     fontSize: FONT_SIZE.xl, 
     fontWeight: "bold", 
-    marginBottom: 8,
+    marginBottom: 20,
     color: COLORS.red,
     textAlign: "center"
   },
-  subtitle: {
-    fontSize: FONT_SIZE.md,
-    color: COLORS.medium_gray,
-    textAlign: "center",
-    marginBottom: 20
+  
+  // Resumo
+  resumoContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    backgroundColor: "#f8f9fa",
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
+  resumoItem: {
+    alignItems: "center"
+  },
+  resumoNumero: {
+    fontSize: FONT_SIZE.xl,
+    fontWeight: "bold",
+    color: COLORS.red,
+    marginBottom: 4
+  },
+  resumoTexto: {
+    fontSize: FONT_SIZE.sm,
+    color: COLORS.medium_gray,
+    fontWeight: "500"
+  },
+
+  // Filtros
+  filtrosContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+    gap: 8
+  },
+  filtro: {
+    flex: 1,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    backgroundColor: "#f0f0f0",
+    alignItems: "center"
+  },
+  filtroAtivo: {
+    backgroundColor: COLORS.red
+  },
+  filtroTexto: {
+    fontSize: FONT_SIZE.sm,
+    color: COLORS.medium_gray,
+    fontWeight: "500"
+  },
+  filtroTextoAtivo: {
+    color: COLORS.white,
+    fontWeight: "bold"
+  },
+
+  // Pedidos
   pedido: { 
     padding: 16, 
     borderRadius: 12, 
@@ -47,8 +100,9 @@ export const styles = StyleSheet.create({
   },
   pedidoTitle: { 
     fontWeight: "bold", 
-    fontSize: FONT_SIZE.md,
-    color: COLORS.dark_gray
+    fontSize: FONT_SIZE.lg,
+    color: COLORS.dark_gray,
+    flex: 1
   },
   status: {
     fontWeight: "bold",
@@ -59,45 +113,8 @@ export const styles = StyleSheet.create({
     color: COLORS.medium_gray,
     marginBottom: 4
   },
-  actions: { 
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 12
-  },
-  btn: { 
-    flex: 0.48,
-    padding: 12, 
-    borderRadius: 8,
-    alignItems: "center"
-  },
-  btnProducao: {
-    backgroundColor: "#ff9800"
-  },
-  btnFinalizado: {
-    backgroundColor: "#4caf50"
-  },
-  btnText: { 
-    color: COLORS.white, 
-    fontWeight: "bold",
-    fontSize: FONT_SIZE.sm
-  },
-  empty: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: 50
-  },
-  emptyText: {
-    fontSize: FONT_SIZE.lg,
-    color: COLORS.medium_gray,
-    fontWeight: "bold",
-    marginBottom: 8
-  },
-  emptySubtext: {
-    fontSize: FONT_SIZE.md,
-    color: COLORS.medium_gray,
-    textAlign: "center"
-  },
+
+  // Itens
   itensContainer: {
     backgroundColor: "#f8f9fa",
     padding: 12,
@@ -151,6 +168,25 @@ export const styles = StyleSheet.create({
     fontSize: FONT_SIZE.sm,
     color: COLORS.medium_gray,
     fontStyle: "italic",
+    textAlign: "center"
+  },
+
+  // Empty state
+  empty: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 50
+  },
+  emptyText: {
+    fontSize: FONT_SIZE.lg,
+    color: COLORS.medium_gray,
+    fontWeight: "bold",
+    marginBottom: 8
+  },
+  emptySubtext: {
+    fontSize: FONT_SIZE.md,
+    color: COLORS.medium_gray,
     textAlign: "center"
   }
 });

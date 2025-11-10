@@ -6,6 +6,12 @@ import Busca from "./screens/busca/busca.jsx";
 import DetalheProduto from "./screens/detalhe-produto/detalhe-produto.jsx";
 import DetalhePedido from "./screens/detalhe-pedido/detalhe-pedido.jsx";
 import Checkout from "./screens/checkout/checkout.jsx";
+import Pedido from "./screens/pedido/pedido.jsx";
+import MeusDados from "./screens/meus-dados/meus-dados.jsx";
+import AdminHome from "./screens/admin/admin-home/admin-home.jsx";
+import AdminPedidos from "./screens/admin/admin-order/admin-order.jsx";
+import AdminDashboard from "./screens/admin/admin-dashboard/admin-dashboard.jsx";
+import AdminHistorico from "./screens/admin/admin-historico/admin-historico.jsx";
 import { Text, TouchableOpacity } from "react-native";
 import { COLORS } from "./constants/theme.js";
 
@@ -46,10 +52,45 @@ function RoutesAuth() {
                 headerShown: false
             }} />
 
-
+            <Stack.Screen name="pedido" component={Pedido} options={{
+                headerShown: false
+            }} />
 
             <Stack.Screen name="cardapio" component={Cardapio} options={{
                 headerShown: false
+            }} />
+
+            <Stack.Screen name="meus-dados" component={MeusDados} options={{
+                headerShown: false
+            }} />
+
+            <Stack.Screen name="admin-home" component={AdminHome} options={{
+                title: "Painel da Cantina",
+                headerTitleAlign: "center",
+                headerStyle: { backgroundColor: COLORS.red },
+                headerTintColor: COLORS.white,
+                headerLeft: null, // Remove botão voltar
+            }} />
+
+            <Stack.Screen name="admin-pedidos" component={AdminPedidos} options={{
+                title: "Gerenciar Pedidos",
+                headerTitleAlign: "center",
+                headerStyle: { backgroundColor: COLORS.red },
+                headerTintColor: COLORS.white,
+            }} />
+
+            <Stack.Screen name="admin-dashboard" component={AdminDashboard} options={{
+                title: "Dashboard",
+                headerTitleAlign: "center",
+                headerStyle: { backgroundColor: COLORS.red },
+                headerTintColor: COLORS.white,
+            }} />
+
+            <Stack.Screen name="admin-historico" component={AdminHistorico} options={{
+                title: "Histórico de Pedidos",
+                headerTitleAlign: "center",
+                headerStyle: { backgroundColor: COLORS.red },
+                headerTintColor: COLORS.white,
             }} />
 
             

@@ -73,7 +73,7 @@ function AbaFavoritos() {
                      nome={item.NOME}
                     logotipo={item.ICONE}
                     icone={icons.remove}
-                    onPress={() => navigation.navigate("detalhe-produto")}
+                    onPress={() => navigation.navigate("detalhe-produto", { ID_PRODUTO: item.ID_PRODUTO })}
                     onClickIcon={DeleteFavoritos}
 />
             )}

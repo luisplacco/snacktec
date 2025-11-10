@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Image } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import icons from "../../constants/icons.js";
@@ -8,18 +8,27 @@ import AbaFavoritos from "../../screens/aba-favoritos/aba-favoritos.jsx";
 import AbaPedidos from "../../screens/aba-pedidos/aba-pedidos.jsx";
 import AbaPerfil from "../../screens/aba-perfil/aba-perfil.jsx";
 
-// Admin stack (create this file if you haven't yet)
-import AdminStack from "../admin/admin.stack.jsx";
-
 import { AuthContext } from "../../contexts/auth.js";
+import { useNavigation } from "@react-navigation/native";
+import AdminHome from "../admin/admin-home/admin-home.jsx";
 
 const Tab = createBottomTabNavigator();
 
-function Principal() {
+function Principal(props) {
     const { user } = useContext(AuthContext);
+    const navigation = useNavigation();
 
-    // ajuste a condição conforme o shape do seu user (role / IS_ADMIN / ADMIN ...)
-    const isAdmin = user?.role === "admin" || user?.IS_ADMIN === 1 || user?.ADMIN === true;
+    useEffect(() => {
+        // Se for administrador, redirecionar para painel admin
+        if (user?.TIPO === "administrador") {
+            navigation.replace("admin-home");
+        }
+    }, [user, navigation]);
+
+    // Se for admin, não mostrar as abas normais
+    if (user?.TIPO === "administrador") {
+        return <AdminHome navigation={props.navigation} />;
+    }
 
     return (
         <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
@@ -60,17 +69,6 @@ function Principal() {
                         style={{ width: 25, height: 25, opacity: focused ? 1 : 0.3 }} />
                 )
             }} />
-
-            {isAdmin && (
-                <Tab.Screen name="admin" component={AdminStack} options={{
-                    title: "Admin",
-                    headerShown: false,
-                    tabBarIcon: ({ focused }) => (
-                        <Image source={icons.abaAdmin ?? icons.abaHome}
-                            style={{ width: 25, height: 25, opacity: focused ? 1 : 0.3 }} />
-                    )
-                }} />
-            )}
 
         </Tab.Navigator>
     );

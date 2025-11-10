@@ -5,7 +5,11 @@ const COLORS = {
     gray: "#E5ECFC",
     light_gray: "#F4F7FE",
     white: "#FFFBF7",
-    green: "#38C682"
+    green: "#38C682",
+    black: "#000",
+    dark_red: "#C62828",
+    light_red: "#FF6B6B",
+    vine: "#6b2323ff",
 }
 
 const FONT_SIZE = {

@@ -2,25 +2,33 @@ import React, { useState } from "react";
 import { View, Text, FlatList, TouchableOpacity, Alert } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import api from "../../../constants/api.js";
-import { styles } from "./admin-order.style.js";
+import { styles } from "./admin-historico.style.js";
 
-export default function AdminPedidos() {
+export default function AdminHistorico() {
   const [pedidos, setPedidos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [expandedPedidos, setExpandedPedidos] = useState([]);
+  const [filtroStatus, setFiltroStatus] = useState('todos'); // todos, pendente, producao, finalizado
 
   async function loadPedidos() {
     setLoading(true);
     try {
       const resp = await api.get("/admin/pedidos");
-      // Filtrar pedidos (apenas não finalizados)
-      const pedidosAtivos = resp.data?.filter(pedido => 
-        pedido.STATUS !== 'F'
-      ) ?? [];
+      let pedidosFiltrados = resp.data || [];
+      
+      // Aplicar filtro de status
+      if (filtroStatus !== 'todos') {
+        const statusMap = {
+          'pendente': null,
+          'producao': 'P', 
+          'finalizado': 'F'
+        };
+        pedidosFiltrados = pedidosFiltrados.filter(pedido => pedido.STATUS === statusMap[filtroStatus]);
+      }
       
       // Carregar itens de cada pedido
       const pedidosComItens = await Promise.all(
-        pedidosAtivos.map(async (pedido) => {
+        pedidosFiltrados.map(async (pedido) => {
           try {
             const itensResp = await api.get(`/admin/pedidos/${pedido.ID_PEDIDO}/itens`);
             return {
@@ -37,42 +45,15 @@ export default function AdminPedidos() {
         })
       );
       
+      // Ordenar por data (mais recente primeiro)
+      pedidosComItens.sort((a, b) => new Date(b.DT_PEDIDO) - new Date(a.DT_PEDIDO));
+      
       setPedidos(pedidosComItens);
     } catch (error) {
       console.log("loadPedidos error:", error);
-      Alert.alert("Erro", "Não foi possível carregar os pedidos");
+      Alert.alert("Erro", "Não foi possível carregar o histórico");
     } finally {
       setLoading(false);
-    }
-  }
-
-  async function alterarStatus(id, novoStatus) {
-    try {
-      const statusText = novoStatus === 'P' ? 'Em produção' : 'Finalizado';
-      
-      Alert.alert(
-        "Confirmar Alteração",
-        `Alterar pedido ${id} para "${statusText}"?`,
-        [
-          { text: "Cancelar", style: "cancel" },
-          {
-            text: "Confirmar",
-            onPress: async () => {
-              try {
-                await api.put(`/admin/pedidos/${id}/status`, { status: novoStatus });
-                Alert.alert("Sucesso", "Status atualizado!");
-                loadPedidos();
-              } catch (error) {
-                console.log("alterarStatus error:", error);
-                Alert.alert("Erro", "Não foi possível alterar o status");
-              }
-            }
-          }
-        ]
-      );
-    } catch (error) {
-      console.log("alterarStatus error:", error);
-      Alert.alert("Erro", "Não foi possível alterar o status");
     }
   }
 
@@ -80,7 +61,7 @@ export default function AdminPedidos() {
     switch(status) {
       case 'P': return '#ff9800'; // Laranja para em produção
       case 'F': return '#4caf50'; // Verde para finalizado
-      default: return '#757575'; // Cinza para outros
+      default: return '#757575'; // Cinza para pendente
     }
   }
 
@@ -100,17 +81,78 @@ export default function AdminPedidos() {
     );
   }
 
+  function getTotalPedidos() {
+    return pedidos.length;
+  }
+
+  function getTotalFaturamento() {
+    return pedidos.reduce((total, pedido) => total + (pedido.VL_TOTAL || 0), 0);
+  }
+
   useFocusEffect(
     React.useCallback(() => {
       loadPedidos();
-    }, [])
+    }, [filtroStatus])
   );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Gerenciar Pedidos</Text>
-      <Text style={styles.subtitle}>Pedidos aguardando preparo</Text>
+      <Text style={styles.title}>Histórico de Pedidos</Text>
+      
+      {/* Resumo */}
+      <View style={styles.resumoContainer}>
+        <View style={styles.resumoItem}>
+          <Text style={styles.resumoNumero}>{getTotalPedidos()}</Text>
+          <Text style={styles.resumoTexto}>Pedidos</Text>
+        </View>
+        <View style={styles.resumoItem}>
+          <Text style={styles.resumoNumero}>
+            {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(getTotalFaturamento())}
+          </Text>
+          <Text style={styles.resumoTexto}>Faturamento</Text>
+        </View>
+      </View>
 
+      {/* Filtros */}
+      <View style={styles.filtrosContainer}>
+        <TouchableOpacity 
+          style={[styles.filtro, filtroStatus === 'todos' && styles.filtroAtivo]}
+          onPress={() => setFiltroStatus('todos')}
+        >
+          <Text style={[styles.filtroTexto, filtroStatus === 'todos' && styles.filtroTextoAtivo]}>
+            Todos
+          </Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={[styles.filtro, filtroStatus === 'pendente' && styles.filtroAtivo]}
+          onPress={() => setFiltroStatus('pendente')}
+        >
+          <Text style={[styles.filtroTexto, filtroStatus === 'pendente' && styles.filtroTextoAtivo]}>
+            Pendentes
+          </Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={[styles.filtro, filtroStatus === 'producao' && styles.filtroAtivo]}
+          onPress={() => setFiltroStatus('producao')}
+        >
+          <Text style={[styles.filtroTexto, filtroStatus === 'producao' && styles.filtroTextoAtivo]}>
+            Em Produção
+          </Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={[styles.filtro, filtroStatus === 'finalizado' && styles.filtroAtivo]}
+          onPress={() => setFiltroStatus('finalizado')}
+        >
+          <Text style={[styles.filtroTexto, filtroStatus === 'finalizado' && styles.filtroTextoAtivo]}>
+            Finalizados
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Lista de pedidos */}
       <FlatList
         data={pedidos}
         keyExtractor={(pedido) => pedido.ID_PEDIDO.toString()}
@@ -143,7 +185,7 @@ export default function AdminPedidos() {
 
               {isExpanded && (
                 <View style={styles.itensContainer}>
-                  <Text style={styles.itensTitle}> Itens do Pedido:</Text>
+                  <Text style={styles.itensTitle}>🍽️ Itens do Pedido:</Text>
                   {item.itens && item.itens.length > 0 ? (
                     item.itens.map((itemPedido, index) => (
                       <View key={index} style={styles.itemPedido}>
@@ -166,29 +208,13 @@ export default function AdminPedidos() {
                   )}
                 </View>
               )}
-
-              <View style={styles.actions}>
-                <TouchableOpacity
-                  style={[styles.btn, styles.btnProducao]}
-                  onPress={() => alterarStatus(item.ID_PEDIDO, "P")}
-                >
-                  <Text style={styles.btnText}> Em Produção</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  style={[styles.btn, styles.btnFinalizado]}
-                  onPress={() => alterarStatus(item.ID_PEDIDO, "F")}
-                >
-                  <Text style={styles.btnText}> Finalizar</Text>
-                </TouchableOpacity>
-              </View>
             </View>
           );
         }}
         ListEmptyComponent={() => (
           <View style={styles.empty}>
-            <Text style={styles.emptyText}>Nenhum pedido pendente</Text>
-            <Text style={styles.emptySubtext}>Todos os pedidos estão finalizados! 🎉</Text>
+            <Text style={styles.emptyText}>Nenhum pedido encontrado</Text>
+            <Text style={styles.emptySubtext}>Não há pedidos para este filtro 📊</Text>
           </View>
         )}
       />

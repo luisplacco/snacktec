@@ -25,5 +25,15 @@ export const styles = {
     },
     status: {
         color: COLORS.green
+    },
+    containerDelete: {
+        justifyContent: "center",
+        alignItems: "center",
+        paddingHorizontal: 15
+    },
+    delete: {
+        width: 24,
+        height: 24,
+        tintColor: COLORS.red
     }
 }

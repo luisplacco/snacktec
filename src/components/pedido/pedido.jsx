@@ -1,5 +1,6 @@
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { styles } from "./pedido.style.js";
+import icons from "../../constants/icons.js";
 
 function Pedido(props) {
 
@@ -24,6 +25,17 @@ function Pedido(props) {
             <Text style={styles.status}>Pedido: {idPedido} - {props.status}
             </Text>
         </View>
+
+        {
+            props.onClickDelete &&
+            <TouchableOpacity style={styles.containerDelete}
+                onPress={(e) => {
+                    e.stopPropagation(); // Impede que abra o detalhe do pedido
+                    props.onClickDelete(idPedido);
+                }}>
+                <Image source={icons.remove} style={styles.delete} />
+            </TouchableOpacity>
+        }
 
     </TouchableOpacity>
 }

@@ -18,10 +18,50 @@ function Registro(props) {
     const { setUser } = useContext(AuthContext);
 
     async function ProcessarNovaConta() {
+        // Validações de campos obrigatórios
+        if (!nome.trim()) {
+            Alert.alert("Erro", "Nome completo é obrigatório.");
+            return;
+        }
+        
+        if (!ra.trim()) {
+            Alert.alert("Erro", "RA é obrigatório.");
+            return;
+        }
+        
+        if (!email.trim()) {
+            Alert.alert("Erro", "E-mail é obrigatório.");
+            return;
+        }
+        
+        if (!senha1.trim()) {
+            Alert.alert("Erro", "Senha é obrigatória.");
+            return;
+        }
+        
+        if (!senha2.trim()) {
+            Alert.alert("Erro", "Confirmação de senha é obrigatória.");
+            return;
+        }
+
+        // Validação de formato de e-mail
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            Alert.alert("Erro", "E-mail deve ter um formato válido.");
+            return;
+        }
+
+        // Validação de tamanho da senha
+        if (senha1.length < 4) {
+            Alert.alert("Erro", "A senha deve ter pelo menos 4 caracteres.");
+            return;
+        }
+
         if (senha1 !== senha2) {
             Alert.alert("Erro", "As senhas não coincidem.");
             return;
         }
+        
         try {
             setLoading(true);
             const response = await api.post("/usuarios", {
