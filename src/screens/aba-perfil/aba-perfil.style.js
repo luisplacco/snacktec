@@ -37,5 +37,9 @@ export const styles = {
     borderTop: {
         borderTopWidth: 1,
         borderTopColor: COLORS.gray
+    },
+    iconeEmoji: {
+        fontSize: 24,
+        textAlign: "center"
     }
 }

@@ -10,7 +10,7 @@ import AbaPerfil from "../../screens/aba-perfil/aba-perfil.jsx";
 
 import { AuthContext } from "../../contexts/auth.js";
 import { useNavigation } from "@react-navigation/native";
-import AdminHome from "../admin/admin-home/admin-home.jsx";
+import AdminPrincipal from "../admin/admin-principal.jsx";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,16 +18,9 @@ function Principal(props) {
     const { user } = useContext(AuthContext);
     const navigation = useNavigation();
 
-    useEffect(() => {
-        // Se for administrador, redirecionar para painel admin
-        if (user?.TIPO === "administrador") {
-            navigation.replace("admin-home");
-        }
-    }, [user, navigation]);
-
-    // Se for admin, não mostrar as abas normais
+    // Se for admin, mostrar as abas do admin
     if (user?.TIPO === "administrador") {
-        return <AdminHome navigation={props.navigation} />;
+        return <AdminPrincipal />;
     }
 
     return (

@@ -31,6 +31,21 @@ function AbaPerfil(props) {
             </View>
         </TouchableOpacity>
 
+        <TouchableOpacity style={styles.item} onPress={() => {
+            props.navigation.navigate("chat");
+        }}>
+            <View style={styles.containerIcone}>
+                <Text style={styles.iconeEmoji}>💬</Text>
+            </View>
+            <View style={styles.textos}>
+                <Text style={styles.titulo}>Suporte</Text>
+                <Text style={styles.subtitulo}>Tire suas dúvidas conosco</Text>
+            </View>
+            <View style={styles.containerIcone}>
+                <Image source={icons.more} style={styles.more} />
+            </View>
+        </TouchableOpacity>
+
         <TouchableOpacity style={styles.item} onPress={handleLogout}>
             <View style={styles.containerIcone}>
                 <Image source={icons.logout} style={styles.icone} />

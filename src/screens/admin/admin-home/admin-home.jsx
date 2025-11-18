@@ -33,6 +33,11 @@ export default function AdminHome({ navigation }) {
         <Text style={styles.cardSubtitle}>Visualizar todos os pedidos anteriores</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate("admin-chat")}>
+        <Text style={styles.cardTitle}>💬 Conversas</Text>
+        <Text style={styles.cardSubtitle}>Responder dúvidas dos alunos</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity style={styles.logoutCard} onPress={handleLogout}>
         <Text style={styles.logoutTitle}> Sair do Painel</Text>
         <Text style={styles.logoutSubtitle}>Voltar para tela de login</Text>

@@ -14,6 +14,8 @@ function TextBox(props) {
             value={props.value}
             returnKeyType={props.returnKeyType ? props.returnKeyType : "default"}
             onSubmitEditing={(value)=> props.onSubmit && props.onSubmit(value.nativeEvent.text)}
+            keyboardType={props.keyboardType}
+            maxLength={props.maxLength}
         />
     </>
 }

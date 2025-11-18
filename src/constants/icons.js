@@ -22,5 +22,6 @@ import mais from "../assets/mais.png";
 export default {
     back, remove, logo, cart, favoritoFull, empty,
     endereco, more, dados, logout, abaHome, abafavorito, abaPedido, abaPerfil,
-    back2, location, produto, menos, mais, favorito
+    back2, location, produto, menos, mais, favorito,
+    chat: dados // Temporário - usando ícone de dados para chat
 };

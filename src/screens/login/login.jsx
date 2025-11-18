@@ -5,7 +5,7 @@ import TextBox from "../../components/textbox/textbox.jsx";
 import Button from "../../components/button/button.jsx";
 import { useContext, useEffect, useState } from "react";
 import api from "../../constants/api.js";
-import { LoadUsuario, SaveUsuario } from "../../storage/storage.usuario.js";
+import { LoadUsuario, SaveUsuario, removeUserStorage } from "../../storage/storage.usuario.js";
 import { AuthContext } from "../../contexts/auth.js";
 
 
@@ -18,6 +18,8 @@ function Login(props) {
     const [loading, setLoading] = useState(false);
 
     const {user, setUser} = useContext(AuthContext); 
+
+  
 
     async function ProcessarLogin() {
     try {
@@ -106,6 +108,8 @@ async function CarregarDados() {
             <TouchableOpacity onPress={() => props.navigation.navigate("registro")}>
                 <Text style={styles.footerText}>Criar minha conta.</Text>
             </TouchableOpacity>
+            
+            
         </View>
     </View>
 }

@@ -28,4 +28,12 @@ async function getToken (){
     }
 }
 
-export {SaveUsuario, LoadUsuario, getToken};
+async function removeUserStorage (){
+    try {
+        await AsyncStorage.removeItem("usuario");
+    } catch (error) {
+        console.log("erro ao remover storage do usuário");
+    }
+}
+
+export {SaveUsuario, LoadUsuario, getToken, removeUserStorage};

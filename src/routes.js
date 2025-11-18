@@ -1,14 +1,36 @@
 import RoutesAuth from "./routesAuth.js";
 import RoutesOpen from "./routesOpen.js";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "./contexts/auth.js";
-import { useNavigation } from "@react-navigation/native";
+import { View, Text, ActivityIndicator } from "react-native";
+import { COLORS } from "./constants/theme.js";
 
 function Routes() {
 
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
 
-    return user.ID_USUARIO ? <RoutesAuth /> : <RoutesOpen />;
+    // Mostrar loading enquanto verifica autenticação
+    if (loading) {
+        return (
+            <View style={{ 
+                flex: 1, 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                backgroundColor: COLORS.white 
+            }}>
+                <ActivityIndicator size="large" color={COLORS.red} />
+                <Text style={{ 
+                    marginTop: 20, 
+                    fontSize: 16, 
+                    color: COLORS.dark_gray 
+                }}>
+                    Carregando...
+                </Text>
+            </View>
+        );
+    }
+
+    return user.ID_USUARIO && user.token ? <RoutesAuth /> : <RoutesOpen />;
 }
 
 export default Routes; 

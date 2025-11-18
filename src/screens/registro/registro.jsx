@@ -17,6 +17,46 @@ function Registro(props) {
     const [senha2, setSenha2] = useState("");
     const { setUser } = useContext(AuthContext);
 
+    function validarRA(ra) {
+        // Remove espaços e caracteres não numéricos
+        const raLimpo = ra.replace(/\D/g, '');
+        
+        // Verificar se tem apenas números
+        if (!/^\d+$/.test(raLimpo)) {
+            return { valido: false, erro: "RA deve conter apenas números." };
+        }
+        
+        // Verificar tamanho (entre 10 e 15 dígitos)
+        if (raLimpo.length < 10) {
+            return { valido: false, erro: "RA deve ter pelo menos 10 dígitos." };
+        }
+        
+        if (raLimpo.length > 15) {
+            return { valido: false, erro: "RA deve ter no máximo 15 dígitos." };
+        }
+        
+        // Verificar sequências óbvias
+        const sequenciasInvalidas = [
+            '1111111111', '2222222222', '3333333333', '4444444444', '5555555555',
+            '6666666666', '7777777777', '8888888888', '9999999999', '0000000000',
+            '1234567890', '0987654321', '12345', '54321', '123456789', '987654321'
+        ];
+        
+        for (let sequencia of sequenciasInvalidas) {
+            if (raLimpo.includes(sequencia)) {
+                return { valido: false, erro: "RA não pode conter sequências óbvias como 12345 ou 11111." };
+            }
+        }
+        
+        // Verificar se não é muito simples (menos de 4 dígitos únicos em RAs longos)
+        const digitosUnicos = [...new Set(raLimpo)].length;
+        if (raLimpo.length >= 10 && digitosUnicos < 4) {
+            return { valido: false, erro: "RA deve conter pelo menos 4 dígitos diferentes." };
+        }
+        
+        return { valido: true };
+    }
+
     async function ProcessarNovaConta() {
         // Validações de campos obrigatórios
         if (!nome.trim()) {
@@ -26,6 +66,13 @@ function Registro(props) {
         
         if (!ra.trim()) {
             Alert.alert("Erro", "RA é obrigatório.");
+            return;
+        }
+        
+        // Validação do RA
+        const validacaoRA = validarRA(ra);
+        if (!validacaoRA.valido) {
+            Alert.alert("Erro", validacaoRA.erro);
             return;
         }
         
@@ -64,12 +111,18 @@ function Registro(props) {
         
         try {
             setLoading(true);
+            
+            // Debug: mostrar dados que serão enviados
+            console.log("📤 Dados do registro:", { nome, ra, email, senha: senha1 });
+            
             const response = await api.post("/usuarios", {
                 nome,
                 ra,
                 email,
                 senha: senha1,
             });
+
+            console.log("✅ Response do servidor:", response.data);
 
             if (response.data) {
                 api.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
@@ -81,10 +134,24 @@ function Registro(props) {
             setLoading(false);
         } catch (error) {
             setLoading(false);
-            if (error.response?.data.error)
+            
+            // Debug: log completo do erro
+            console.log("❌ Erro completo:", error);
+            console.log("📋 Detalhes do erro:", {
+                message: error.message,
+                status: error.response?.status,
+                data: error.response?.data,
+                url: error.config?.url,
+                method: error.config?.method,
+                sentData: error.config?.data
+            });
+            
+            if (error.response?.data?.error)
                 Alert.alert("Erro", error.response.data.error);
+            else if (error.code === 'NETWORK_ERROR')
+                Alert.alert("Erro", "Erro de rede. Verifique se o backend está rodando na porta 3001.");
             else
-                Alert.alert("Erro", "Não foi possível conectar ao servidor.");
+                Alert.alert("Erro", `Não foi possível conectar ao servidor. Status: ${error.response?.status || 'Desconhecido'}`);
         }
     }
 
@@ -97,7 +164,14 @@ function Registro(props) {
                         <TextBox label="Nome Completo" onChangeText={setNome} value={nome} />
                     </View>
                     <View style={styles.form}>
-                        <TextBox label="RA" onChangeText={setRa} value={ra} />
+                        <TextBox 
+                            label="RA (10-15 dígitos)" 
+                            placeholder="Ex: 1961432512008"
+                            onChangeText={setRa} 
+                            value={ra}
+                            keyboardType="numeric"
+                            maxLength={15}
+                        />
                     </View>
                     <View style={styles.form}>
                         <TextBox label="E-mail" onChangeText={setEmail} value={email} />
